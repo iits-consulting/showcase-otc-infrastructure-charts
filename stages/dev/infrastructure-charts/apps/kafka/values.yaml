@@ -38,6 +38,6 @@ akhq:
   readinessProbe:
     prefix: "/akhq"
 dns:
-  domain: "admin.fridaytalk.iits.tech"
+  domain: "SET_BY_STAGE_VALUES"
   hostPrefixRegex: "HostRegexp(`{host:admin.+}`)"
   clusterIssuer: "letsencrypt"

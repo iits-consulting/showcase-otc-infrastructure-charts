@@ -1,0 +1,105 @@
+filebeat:
+  enabled: true
+  readinessProbe:
+    failureThreshold: 50
+    initialDelaySeconds: 20
+    periodSeconds: 30
+    timeoutSeconds: 10
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "100M"
+    limits:
+      cpu: "1000m"
+      memory: "500M"
+  filebeatConfig:
+    filebeat.yml: |
+      filebeat.modules:
+      - module: system
+      filebeat.autodiscover:
+        providers:
+          - type: kubernetes
+            hints.enabled: true
+            node: ${NODE_NAME}
+            templates:
+              - condition.or:
+                - contains.kubernetes.namespace: admin
+                - contains.kubernetes.namespace: auth
+                - contains.kubernetes.namespace: cert-manager
+                - contains.kubernetes.namespace: default
+                - contains.kubernetes.namespace: gitlab
+                - contains.kubernetes.namespace: kube-node-lease
+                - contains.kubernetes.namespace: kube-public
+                - contains.kubernetes.namespace: kube-system
+                - contains.kubernetes.namespace: logging
+                - contains.kubernetes.namespace: monitoring
+                - contains.kubernetes.namespace: test
+                - contains.kubernetes.namespace: vault
+                - contains.kubernetes.namespace: wekan
+                config:
+                  - type: docker
+                    containers.ids:
+                      - "${data.kubernetes.container.id}"
+                    multiline.pattern: '\n'
+                    multiline.negate: false
+                    multiline.match: after
+      processors:
+        - decode_json_fields:
+            fields: ["message"]
+            target: ""
+            overwrite_keys: true
+        - add_cloud_metadata:
+      output.elasticsearch:
+        hosts: '${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}'
+      setup.kibana:
+        host: "elastic-stack-kibana:5601"
+        protocol: "http"
+
+elasticsearch:
+  enabled: true
+  volumeClaimTemplate:
+    accessModes: [ "ReadWriteOnce" ]
+    resources:
+      requests:
+        storage: 50G
+  esJavaOpts: "-Xmx4g -Xms4g"
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "4G"
+    limits:
+      cpu: "2000m"
+      memory: "6G"
+  replicas: 2
+  esConfig:
+    elasticsearch.yml: |
+      cluster.name: "docker-cluster"
+      network.host: 0.0.0.0
+      http.max_header_size: 16kb
+
+kibana:
+  enabled: true
+  replicas: 1
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "1G"
+    limits:
+      cpu: "500m"
+      memory: "2G"
+  kibanaConfig:
+    kibana.yml: |
+      server.name: kibana
+      server.host: "0"
+      server.basePath: "/kibana"
+      elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+      xpack.monitoring.ui.container.elasticsearch.enabled: true
+      xpack.monitoring.enabled: true
+  service:
+    type: ClusterIP
+    port: 5601
+    annotations: {}
+dns:
+  domain: "SET_BY_STAGE_VALUES"
+  hostPrefixRegex: "HostRegexp(`{host:admin.+}`)"
+  clusterIssuer: "letsencrypt"
