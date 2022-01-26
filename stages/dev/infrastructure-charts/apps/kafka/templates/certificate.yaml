@@ -1,15 +1,15 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name:  admin-domain
+  name:  {{ .Release.Name }}-cert
 spec:
-  secretName: admin-domain
+  secretName: {{ .Release.Name }}-cert
   issuerRef:
-    name: letsencrypt
+    name: {{ .Values.dns.clusterIssuer }}
     kind: ClusterIssuer
-  commonName: {{ .Values.domain}}
+  commonName: {{ .Values.dns.domain}}
   privateKey:
     algorithm: "RSA"
     size: 4096
   dnsNames:
-    - {{.Values.domain}}
+    - {{ .Values.dns.domain }}

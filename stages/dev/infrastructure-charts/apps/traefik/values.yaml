@@ -23,8 +23,3 @@ traefik:
       enabled: true
     kubernetesIngress:
       enabled: true
-admin:
-  url: "SET_BY_STAGEVALUES"
-  certificate:
-    name: admin-cert
-    clusterIssuer: letsencrypt
