@@ -13,7 +13,7 @@ kafka:
 traefik:
   helm:
     parameters:
-      - name: "traefik.service.annotations.kubernetes.io/elb.id"
+      - name: traefik.service.annotations.kubernetes\.io\/elb\.id
         value: 616a8804-e7f2-4edd-ad25-cc528e3052de
       - name: admin.url
         value: admin.fridaytalk.iits.tech
