@@ -7,7 +7,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: {{.Values.hostPrefixRegex}} && PathPrefix(`/kibana`)
+      match: {{ .Values.dns.hostPrefixRegex }} && PathPrefix(`/kibana`)
       middlewares:
         - name: strip-prefix-{{ .Release.Name }}
           namespace: {{ .Release.Namespace }}
