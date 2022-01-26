@@ -1,0 +1,40 @@
+{{- range $path, $_  := $.Files.Glob "apps/**/Chart.yaml"}}
+{{- $chartName := $path | replace "apps/" "" | replace "/Chart.yaml" ""}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $chartName }}
+  namespace: argocd
+  annotations:
+    {{- if (index $.Values $chartName).helm }}
+    helmParametersChecksum: {{ (print (index $.Values $chartName).helm) | sha256sum}}
+    {{- end }}
+spec:
+  project: {{ $.Values.global.projectName}}
+  revisionHistoryLimit: 3
+  {{- if (index $.Values $chartName).ignoreDifferences }}
+  ignoreDifferences:
+{{ toYaml (index $.Values $chartName).ignoreDifferences | indent 4 }}
+  {{- end }}
+  {{- if not (index $.Values $chartName).disableAutoSync }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+  {{- end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ (index $.Values $chartName).namespace }}
+  source:
+    path: {{$.Values.global.source.appsBasePath}}/{{ $chartName }}
+    repoURL: {{ $.Values.global.source.repoURL }}
+    targetRevision: {{ $.Values.global.source.targetRevision }}
+    {{- if (index $.Values $chartName).helm }}
+    helm:
+    {{- toYaml  (index $.Values $chartName).helm | nindent 6 }}
+    {{- end }}
+---
+{{- end }}

@@ -1,0 +1,9 @@
+global:
+  stage: dev
+  projectName: showcase-otc-infrastructure-charts
+  source:
+    repoURL: https://github.com/iits-consulting/showcase-otc-infrastructure-charts.git
+    targetRevision: main
+    appsBasePath: stages/dev/infrastructure-charts/apps
+cert-manager:
+  namespace: cert-manager
