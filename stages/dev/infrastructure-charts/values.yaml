@@ -7,3 +7,7 @@ global:
     appsBasePath: stages/dev/infrastructure-charts/apps
 cert-manager:
   namespace: cert-manager
+kafka:
+  namespace: monitoring
+traefik:
+  namespace: routing
