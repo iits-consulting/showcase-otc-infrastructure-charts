@@ -22,19 +22,19 @@ spec:
       prune: true
       selfHeal: true
       allowEmpty: true
+  {{- end }}
     syncOptions:
       - CreateNamespace=true
-  {{- end }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ (index $.Values $chartName).namespace }}
   source:
-    path: {{$.Values.global.source.appsBasePath}}/{{ $chartName }}
+    path: {{$.Values.global.source.appsBasePath | replace "$STAGE" $.Values.global.stage }}/{{ $chartName }}
     repoURL: {{ $.Values.global.source.repoURL }}
     targetRevision: {{ $.Values.global.source.targetRevision }}
     {{- if (index $.Values $chartName).helm }}
     helm:
-    {{- toYaml  (index $.Values $chartName).helm | nindent 6 }}
+    {{- toYaml  (index $.Values $chartName).helm | nindent 6 | replace "$STAGE" $.Values.global.stage }}
     {{- end }}
 ---
 {{- end }}
