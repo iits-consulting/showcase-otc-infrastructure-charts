@@ -66,10 +66,10 @@ elasticsearch:
   resources:
     requests:
       cpu: "200m"
-      memory: "4G"
+      memory: "2G"
     limits:
       cpu: "2000m"
-      memory: "6G"
+      memory: "3G"
   replicas: 2
   esConfig:
     elasticsearch.yml: |
