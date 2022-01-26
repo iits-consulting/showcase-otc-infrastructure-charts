@@ -62,15 +62,15 @@ elasticsearch:
     resources:
       requests:
         storage: 50G
-  esJavaOpts: "-Xmx4g -Xms4g"
+  esJavaOpts: "-Xmx2g -Xms2g"
   resources:
     requests:
       cpu: "200m"
-      memory: "2G"
+      memory: "1G"
     limits:
       cpu: "2000m"
       memory: "3G"
-  replicas: 2
+  replicas: 1
   esConfig:
     elasticsearch.yml: |
       cluster.name: "docker-cluster"
