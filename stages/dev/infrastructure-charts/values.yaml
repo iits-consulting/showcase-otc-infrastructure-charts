@@ -4,7 +4,7 @@ global:
   source:
     repoURL: https://github.com/iits-consulting/showcase-otc-infrastructure-charts.git
     targetRevision: main
-    appsBasePath: stages/dev/infrastructure-charts/apps
+    appsBasePath: stages/$STAGE/infrastructure-charts/apps
 cert-manager:
   namespace: cert-manager
   elbID: 616a8804-e7f2-4edd-ad25-cc528e3052de
