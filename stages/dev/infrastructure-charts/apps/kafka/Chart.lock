@@ -1,0 +1,9 @@
+dependencies:
+- name: kafka
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.9.5
+- name: akhq
+  repository: https://akhq.io/
+  version: 0.2.0
+digest: sha256:1a0860f297164253d86fe1c536306d0f0d7ca51546d1d70ba9873d4ff4a27451
+generated: "2021-08-22T12:13:47.241491227+02:00"
