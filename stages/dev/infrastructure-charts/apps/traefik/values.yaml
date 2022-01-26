@@ -24,7 +24,7 @@ traefik:
     kubernetesIngress:
       enabled: true
 admin:
-  url: "admin.REPLACE_ME"
+  url: "SET_BY_STAGEVALUES"
   certificate:
     name: admin-cert
     clusterIssuer: letsencrypt

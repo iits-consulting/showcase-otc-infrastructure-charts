@@ -14,9 +14,9 @@ traefik:
   helm:
     parameters:
       - name: traefik.service.annotations.kubernetes\.io\/elb\.id
-        value: vault:secret/data/$STAGE/elb_info#elb_id
+        value: 616a8804-e7f2-4edd-ad25-cc528e3052de
       - name: admin.url
-        value: admin.$STAGE-mbfd.iits-consulting.de
+        value: admin.fridaytalk.iits.tech
   ignoreDifferences:
     - jsonPointers:
         - /metadata/annotations
