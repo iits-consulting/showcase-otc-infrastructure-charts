@@ -22,3 +22,5 @@ traefik:
         - /metadata/annotations
       kind: Service
   namespace: routing
+storage-classes:
+  namespace: default
