@@ -5,5 +5,5 @@ cert-manager:
        - "8.8.8.8"
   podLabels:
     aadpodidbinding: otc-cert-manager
-elbID: "616a8804-e7f2-4edd-ad25-cc528e3052de"
+elbID: "SET_BY_ARGOCD_STAGEVALUES"
 ingressClass: traefik

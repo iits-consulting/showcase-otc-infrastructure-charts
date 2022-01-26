@@ -14,6 +14,8 @@ traefik:
     replicas: 1
   service:
     type: LoadBalancer
+    annotations:
+      kubernetes.io/elb.id: "SET_BY_STAGEVALUES"
     spec:
       externalTrafficPolicy: Cluster
   providers:
@@ -21,13 +23,8 @@ traefik:
       enabled: true
     kubernetesIngress:
       enabled: true
-  ports:
-    internalhttps:
-      exposedPort: 8444
-      port: 8444
-      expose: false
-      protocol: TCP
-      tls:
-        enabled: false
-domain: "admin.fridaytalk.iits.tech"
-
+admin:
+  url: "admin.REPLACE_ME"
+  certificate:
+    name: admin-cert
+    clusterIssuer: letsencrypt
