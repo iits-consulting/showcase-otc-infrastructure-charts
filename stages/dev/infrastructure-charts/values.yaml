@@ -14,7 +14,7 @@ kafka:
   helm:
     parameters:
       - name: dns.domain
-        value: "admin.$STAGE-fridaytalk.iits.tech"
+        value: "admin.qa-fridaytalk.iits.tech"
 traefik:
   helm:
     parameters:
