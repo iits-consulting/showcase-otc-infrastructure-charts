@@ -5,5 +5,5 @@ global:
     repoURL: "https://github.com/iits-consulting/showcase-otc-infrastructure-charts.git"
     targetRevision: main
     appsBasePath: "stages/$STAGE/infrastructure-charts/apps"
-storage-class:
+storage-classes:
   namespace: default
