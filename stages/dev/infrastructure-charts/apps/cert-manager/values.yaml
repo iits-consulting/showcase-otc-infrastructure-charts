@@ -1,0 +1,8 @@
+cert-manager:
+  podDnsPolicy: "None"
+  podDnsConfig:
+     nameservers:
+       - "8.8.8.8"
+  podLabels:
+    aadpodidbinding: otc-cert-manager
+ingressClass: traefik

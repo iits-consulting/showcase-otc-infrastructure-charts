@@ -7,3 +7,27 @@ global:
     appsBasePath: "stages/$STAGE/infrastructure-charts/apps"
 storage-classes:
   namespace: default
+cert-manager:
+  namespace: cert-manager
+kafka:
+  namespace: kafka
+  helm:
+    parameters:
+      - name: dns.domain
+        value: "admin.$STAGE-fridaytalk.iits.tech"
+traefik:
+  helm:
+    parameters:
+      - name: traefik.service.annotations.kubernetes\.io\/elb\.id
+        value: "134208e0-2e99-4b92-9b83-4bbe639d3a23"
+  ignoreDifferences:
+    - jsonPointers:
+        - /metadata/annotations
+      kind: Service
+  namespace: routing
+elastic-stack:
+  namespace: monitoring
+  helm:
+    parameters:
+      - name: dns.domain
+        value: "admin.$STAGE-fridaytalk.iits.tech"
