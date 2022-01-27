@@ -1,0 +1,11 @@
+apiVersion: v2
+dependencies:
+- name: kafka
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.9.5
+- name: akhq
+  repository: https://akhq.io/
+  version: 0.2.0
+description: Kafka
+name: kafka
+version: 2.25.0-c1348d4d1733dbe257e491d709f20974be01986c
