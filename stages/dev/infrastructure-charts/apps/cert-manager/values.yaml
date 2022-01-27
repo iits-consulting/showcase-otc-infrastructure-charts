@@ -1,9 +1,0 @@
-cert-manager:
-  podDnsPolicy: "None"
-  podDnsConfig:
-     nameservers:
-       - "8.8.8.8"
-  podLabels:
-    aadpodidbinding: otc-cert-manager
-elbID: "SET_BY_ARGOCD_STAGEVALUES"
-ingressClass: traefik
