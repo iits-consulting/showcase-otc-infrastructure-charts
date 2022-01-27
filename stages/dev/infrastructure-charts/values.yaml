@@ -9,10 +9,6 @@ storage-classes:
   namespace: default
 cert-manager:
   namespace: cert-manager
-  helm:
-    parameters:
-      - name: elbID
-        value: "50435e3d-dee2-4294-b6d8-b68c4f554395"
 kafka:
   namespace: kafka
   helm:

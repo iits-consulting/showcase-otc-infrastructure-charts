@@ -20,6 +20,5 @@ spec:
               metadata:
                 annotations:
                   "cert-manager.io/issue-temporary-certificate": "true"
-                  "kubernetes.io/elb.id": {{ toString .Values.elbID | sha256sum }}
                   "kubernetes.io/ingress.class": {{.Values.ingressClass}}
                   "certmanager.k8s.io/cluster-issuer": letsencrypt
