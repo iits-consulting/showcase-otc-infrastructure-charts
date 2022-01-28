@@ -9,3 +9,25 @@ cert-manager:
   namespace: cert-manager
 storage-classes:
   namespace: default
+kafka:
+  namespace: kafka
+  helm:
+    parameters:
+      - name: dns.domain
+        value: "admin.$STAGE-friday.iits.tech"
+traefik:
+  namespace: routing
+  helm:
+    parameters:
+      - name: traefik.service.annotations.kubernetes\.io\/elb\.id
+        value: 01b21cc5-c4ec-4397-95bd-c8f6377ea6ea
+    ignoreDifferences:
+      - jsonPointers:
+          - /metadata/annotations
+        kind: Service
+elastic-stack:
+  namespace: monitoring
+  helm:
+    parameters:
+      - name: dns.domain
+        value: "admin.$STAGE-friday.iits.tech"
