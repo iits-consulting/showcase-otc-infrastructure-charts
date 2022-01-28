@@ -21,9 +21,9 @@ traefik:
     parameters:
       - name: traefik.service.annotations.kubernetes\.io\/elb\.id
         value: 01b21cc5-c4ec-4397-95bd-c8f6377ea6ea
-    ignoreDifferences:
+  ignoreDifferences:
       - jsonPointers:
-          - /metadata/annotations
+        - /metadata/annotations
         kind: Service
 elastic-stack:
   namespace: monitoring
